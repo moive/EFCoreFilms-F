@@ -9,6 +9,7 @@ namespace EFCoreFilms.entities
 
         //[StringLength(150)]
         //[MaxLength(150)]
+        //[Required]
         public string Name { get; set; }
     }
 }
