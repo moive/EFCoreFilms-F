@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreFilms.entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreFilms
 {
@@ -7,5 +8,7 @@ namespace EFCoreFilms
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Gender> Genders { get; set; }
     }
 }
