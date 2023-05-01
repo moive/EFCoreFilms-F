@@ -9,6 +9,12 @@ namespace EFCoreFilms
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Gender>().HasKey(prop => prop.Identifier);
+        }
+
         public DbSet<Gender> Genders { get; set; }
     }
 }

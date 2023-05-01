@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EFCoreFilms.entities
+﻿namespace EFCoreFilms.entities
 {
     public class Gender
     {
-        [Key]
+        //[Key]
         public int Identifier { get; set; }
         public string Name { get; set; }
     }
