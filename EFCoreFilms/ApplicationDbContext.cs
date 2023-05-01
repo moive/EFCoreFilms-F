@@ -13,6 +13,7 @@ namespace EFCoreFilms
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Gender>().HasKey(prop => prop.Identifier);
+            modelBuilder.Entity<Gender>().Property(prop => prop.Name).HasMaxLength(150);
         }
 
         public DbSet<Gender> Genders { get; set; }
