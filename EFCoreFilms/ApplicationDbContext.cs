@@ -13,10 +13,13 @@ namespace EFCoreFilms
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Gender>().HasKey(prop => prop.Identifier);
-            modelBuilder.Entity<Gender>().Property(prop => prop.Name).HasMaxLength(150).IsRequired().HasColumnName("NameGender");
-            modelBuilder.Entity<Gender>().ToTable(name: "TableGenders", schema: "Films");
+            modelBuilder.Entity<Gender>().Property(prop => prop.Name).HasMaxLength(150).IsRequired();
+
+            modelBuilder.Entity<Actor>().Property(x=> x.Name).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Actor>().Property(x => x.BirthDate).HasColumnType("date");
         }
 
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Actor> Actors { get; set; }
     }
 }
