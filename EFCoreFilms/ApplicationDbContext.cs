@@ -17,9 +17,13 @@ namespace EFCoreFilms
 
             modelBuilder.Entity<Actor>().Property(x=> x.Name).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Actor>().Property(x => x.BirthDate).HasColumnType("date");
+
+            modelBuilder.Entity<Cinema>().Property(x => x.Name).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Cinema>().Property(x => x.Price).HasPrecision(precision: 9, scale: 2);
         }
 
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Actor> Actors { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
     }
 }
