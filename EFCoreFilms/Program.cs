@@ -10,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(connectionString,
+                sqlServer => sqlServer.UseNetTopologySuite()));
 
 var app = builder.Build();
 
