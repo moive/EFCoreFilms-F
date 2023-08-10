@@ -7,9 +7,8 @@ namespace EFCoreFilms.entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //[Precision(precision: 9, scale: 2)]
-        public decimal Price { get; set; }
         public Point Location { get; set; }
         public CinemaOffer CinemaOffer { get; set; }
+        public HashSet<CinemaRoom> Cinemaroom { get; set; } // HashSet is not sortable data
     }
 }
