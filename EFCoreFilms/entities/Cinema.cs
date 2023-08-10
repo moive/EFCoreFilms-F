@@ -10,5 +10,6 @@ namespace EFCoreFilms.entities
         //[Precision(precision: 9, scale: 2)]
         public decimal Price { get; set; }
         public Point Location { get; set; }
+        public CinemaOffer CinemaOffer { get; set; }
     }
 }
