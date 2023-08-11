@@ -1,5 +1,7 @@
 ﻿using EFCoreFilms.entities;
+using EFCoreFilms.entities.configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EFCoreFilms
 {
@@ -17,22 +19,9 @@ namespace EFCoreFilms
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Gender>().HasKey(prop => prop.Identifier);
-            modelBuilder.Entity<Gender>().Property(prop => prop.Name).HasMaxLength(150).IsRequired();
 
-            modelBuilder.Entity<Actor>().Property(x => x.Name).HasMaxLength(150).IsRequired();
-
-            modelBuilder.Entity<Cinema>().Property(x => x.Name).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<CinemaRoom>().Property(x => x.Price).HasPrecision(precision: 9, scale: 2);
-            modelBuilder.Entity<CinemaRoom>().Property(x => x.CinemaType).HasDefaultValue(CinemaType.TwoDimensions);
-
-            modelBuilder.Entity<Films>().Property(x => x.Title).HasMaxLength(250).IsRequired();
-            modelBuilder.Entity<Films>().Property(x => x.posterURL).HasMaxLength(500).IsUnicode(false);
-
-            modelBuilder.Entity<CinemaOffer>().Property(x => x.DiscountPercentage).HasPrecision(precision: 5, scale: 2);
-
-            modelBuilder.Entity<FilmActor>().HasKey(prop => new { prop.FilmId, prop.ActorId });
-            modelBuilder.Entity<FilmActor>().Property(x => x.Character).HasMaxLength(150);
+            //modelBuilder.ApplyConfiguration(new GenderConfig()); // implementing one by one 
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public DbSet<Gender> Genders { get; set; }
