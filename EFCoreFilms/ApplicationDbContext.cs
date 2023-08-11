@@ -9,6 +9,11 @@ namespace EFCoreFilms
         {
         }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<DateTime>().HaveColumnType("date");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -16,19 +21,15 @@ namespace EFCoreFilms
             modelBuilder.Entity<Gender>().Property(prop => prop.Name).HasMaxLength(150).IsRequired();
 
             modelBuilder.Entity<Actor>().Property(x => x.Name).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Actor>().Property(x => x.BirthDate).HasColumnType("date");
 
             modelBuilder.Entity<Cinema>().Property(x => x.Name).HasMaxLength(150).IsRequired();
             modelBuilder.Entity<CinemaRoom>().Property(x => x.Price).HasPrecision(precision: 9, scale: 2);
             modelBuilder.Entity<CinemaRoom>().Property(x => x.CinemaType).HasDefaultValue(CinemaType.TwoDimensions);
 
             modelBuilder.Entity<Films>().Property(x => x.Title).HasMaxLength(250).IsRequired();
-            modelBuilder.Entity<Films>().Property(x => x.ReleaseDate).HasColumnType("date");
             modelBuilder.Entity<Films>().Property(x => x.posterURL).HasMaxLength(500).IsUnicode(false);
 
             modelBuilder.Entity<CinemaOffer>().Property(x => x.DiscountPercentage).HasPrecision(precision: 5, scale: 2);
-            modelBuilder.Entity<CinemaOffer>().Property(x => x.StartDate).HasColumnType("date");
-            modelBuilder.Entity<CinemaOffer>().Property(x => x.EndDate).HasColumnType("date");
 
             modelBuilder.Entity<FilmActor>().HasKey(prop => new { prop.FilmId, prop.ActorId });
             modelBuilder.Entity<FilmActor>().Property(x => x.Character).HasMaxLength(150);
