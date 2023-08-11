@@ -1,5 +1,6 @@
 ﻿using EFCoreFilms.entities;
 using EFCoreFilms.entities.configurations;
+using EFCoreFilms.entities.seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -22,6 +23,7 @@ namespace EFCoreFilms
 
             //modelBuilder.ApplyConfiguration(new GenderConfig()); // implementing one by one 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            SeedingConsultModule.Seed(modelBuilder);
         }
 
         public DbSet<Gender> Genders { get; set; }
