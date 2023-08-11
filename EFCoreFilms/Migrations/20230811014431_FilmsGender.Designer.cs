@@ -4,6 +4,7 @@ using EFCoreFilms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 
@@ -12,9 +13,11 @@ using NetTopologySuite.Geometries;
 namespace EFCoreFilms.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230811014431_FilmsGender")]
+    partial class FilmsGender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,21 +25,6 @@ namespace EFCoreFilms.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CinemaRoomFilms", b =>
-                {
-                    b.Property<int>("FilmsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("cinemaRoomsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilmsId", "cinemaRoomsId");
-
-                    b.HasIndex("cinemaRoomsId");
-
-                    b.ToTable("CinemaRoomFilms");
-                });
 
             modelBuilder.Entity("EFCoreFilms.entities.Actor", b =>
                 {
@@ -199,21 +187,6 @@ namespace EFCoreFilms.Migrations
                     b.HasIndex("GendersIdentifier");
 
                     b.ToTable("FilmsGender");
-                });
-
-            modelBuilder.Entity("CinemaRoomFilms", b =>
-                {
-                    b.HasOne("EFCoreFilms.entities.Films", null)
-                        .WithMany()
-                        .HasForeignKey("FilmsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EFCoreFilms.entities.CinemaRoom", null)
-                        .WithMany()
-                        .HasForeignKey("cinemaRoomsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EFCoreFilms.entities.CinemaOffer", b =>

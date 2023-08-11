@@ -14,5 +14,6 @@ namespace EFCoreFilms.entities
         //[Required]
         //[Column("GenderName")]
         public string Name { get; set; }
+        public HashSet<Films> Films { get; set; }
     }
 }
