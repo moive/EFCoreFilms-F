@@ -9,5 +9,6 @@ namespace EFCoreFilms.entities
         public string Bio { get; set; }
         //[Column(TypeName = "Date")]
         public DateTime? BirthDate { get; set; }
+        public HashSet<FilmActor> FilmsActors { get; set; }
     }
 }

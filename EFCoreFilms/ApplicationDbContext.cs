@@ -29,6 +29,9 @@ namespace EFCoreFilms
             modelBuilder.Entity<CinemaOffer>().Property(x => x.DiscountPercentage).HasPrecision(precision: 5, scale: 2);
             modelBuilder.Entity<CinemaOffer>().Property(x => x.StartDate).HasColumnType("date");
             modelBuilder.Entity<CinemaOffer>().Property(x => x.EndDate).HasColumnType("date");
+
+            modelBuilder.Entity<FilmActor>().HasKey(prop => new { prop.FilmId, prop.ActorId });
+            modelBuilder.Entity<FilmActor>().Property(x => x.Character).HasMaxLength(150);
         }
 
         public DbSet<Gender> Genders { get; set; }
@@ -37,5 +40,6 @@ namespace EFCoreFilms
         public DbSet<Films> Films { get; set; }
         public DbSet<CinemaOffer> CinemaOffers { get; set; }
         public DbSet<CinemaRoom> CinemaRooms { get; set; }
+        public DbSet<FilmActor> FilmsActors { get; set; }
     }
 }
