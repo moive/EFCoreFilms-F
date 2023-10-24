@@ -18,7 +18,7 @@ namespace EFCoreFilms.Controllers
         [HttpGet]
         public async Task<IEnumerable<Gender>> Get()
         {
-            return await context.Genders.ToListAsync();
+            return await context.Genders.AsNoTracking().ToListAsync();
         }
     }
 }
