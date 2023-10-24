@@ -20,5 +20,11 @@ namespace EFCoreFilms.Controllers
         {
             return await context.Genders.ToListAsync();
         }
+
+        [HttpGet("first")]
+        public async Task<Gender> First()
+        {
+            return await context.Genders.FirstAsync(g => g.Name.StartsWith("Z"));
+        }
     }
 }
