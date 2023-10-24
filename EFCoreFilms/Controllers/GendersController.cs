@@ -25,7 +25,7 @@ namespace EFCoreFilms.Controllers
         public async Task<ActionResult<Gender>> Get(int id)
         {
             var gender = await context.Genders.FirstOrDefaultAsync(g => g.Identifier == id);
-            if(gender is null)
+            if (gender is null)
             {
                 return NotFound();
             }
@@ -42,6 +42,14 @@ namespace EFCoreFilms.Controllers
                 return NotFound();
             }
             return gender;
+        }
+
+        [HttpGet("filter")]
+        public async Task<IEnumerable<Gender>> Filter()
+        {
+            return await context.Genders.Where(
+                g => g.Name.StartsWith("C") || g.Name.StartsWith("A")
+                ).ToListAsync();
         }
     }
 }
