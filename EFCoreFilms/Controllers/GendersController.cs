@@ -21,10 +21,27 @@ namespace EFCoreFilms.Controllers
             return await context.Genders.ToListAsync();
         }
 
-        [HttpGet("first")]
-        public async Task<Gender> First()
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Gender>> Get(int id)
         {
-            return await context.Genders.FirstAsync(g => g.Name.StartsWith("Z"));
+            var gender = await context.Genders.FirstOrDefaultAsync(g => g.Identifier == id);
+            if(gender is null)
+            {
+                return NotFound();
+            }
+            return gender;
+        }
+
+        [HttpGet("first")]
+        public async Task<ActionResult<Gender>> First()
+        {
+            var gender = await context.Genders.FirstOrDefaultAsync(g => g.Name.StartsWith("C"));
+
+            if (gender is null)
+            {
+                return NotFound();
+            }
+            return gender;
         }
     }
 }
