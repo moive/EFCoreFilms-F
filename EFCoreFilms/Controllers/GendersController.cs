@@ -52,5 +52,16 @@ namespace EFCoreFilms.Controllers
                 .OrderByDescending(g => g.Name)
                 .ToListAsync();
         }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<Gender>>> GetPagination(int page = 1)
+        {
+            var quantityRecordsByPage = 2;
+            var gender = await context.Genders
+                .Skip((page - 1) * quantityRecordsByPage)
+                .Take(quantityRecordsByPage)
+                .ToListAsync();
+            return gender;
+        }
     }
 }
