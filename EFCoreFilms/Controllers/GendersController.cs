@@ -49,7 +49,7 @@ namespace EFCoreFilms.Controllers
         {
             return await context.Genders
                 .Where(g => g.Name.Contains(name))
-                .OrderBy(g => g.Name)
+                .OrderByDescending(g => g.Name)
                 .ToListAsync();
         }
     }
