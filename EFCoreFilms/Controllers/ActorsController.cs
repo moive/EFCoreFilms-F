@@ -1,4 +1,5 @@
-﻿using EFCoreFilms.entities;
+﻿using EFCoreFilms.DTOs;
+using EFCoreFilms.entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +7,7 @@ namespace EFCoreFilms.Controllers
 {
     [ApiController]
     [Route("api/actors")]
-    public class ActorsController: ControllerBase
+    public class ActorsController : ControllerBase
     {
         private readonly ApplicationDbContext context;
 
@@ -16,10 +17,9 @@ namespace EFCoreFilms.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<IEnumerable<ActorDTO>> Get()
         {
-            var actors = await context.Actors.Select(a => new {Id = a.Id, Name = a.Name}).ToListAsync();
-            return Ok(actors);
+            return await context.Actors.Select(a => new ActorDTO { Id = a.Id, Name = a.Name }).ToListAsync();
         }
     }
 }
