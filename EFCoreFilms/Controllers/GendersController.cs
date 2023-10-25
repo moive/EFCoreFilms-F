@@ -45,10 +45,10 @@ namespace EFCoreFilms.Controllers
         }
 
         [HttpGet("filter")]
-        public async Task<IEnumerable<Gender>> Filter()
+        public async Task<IEnumerable<Gender>> Filter(string name)
         {
             return await context.Genders.Where(
-                g => g.Name.StartsWith("C") || g.Name.StartsWith("A")
+                g => g.Name.Contains(name)
                 ).ToListAsync();
         }
     }
