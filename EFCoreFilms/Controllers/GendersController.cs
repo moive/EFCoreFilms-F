@@ -47,9 +47,10 @@ namespace EFCoreFilms.Controllers
         [HttpGet("filter")]
         public async Task<IEnumerable<Gender>> Filter(string name)
         {
-            return await context.Genders.Where(
-                g => g.Name.Contains(name)
-                ).ToListAsync();
+            return await context.Genders
+                .Where(g => g.Name.Contains(name))
+                .OrderBy(g => g.Name)
+                .ToListAsync();
         }
     }
 }
