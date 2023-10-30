@@ -23,9 +23,9 @@ namespace EFCoreFilms.Controllers
         public async Task<ActionResult<MovieDTO>> Get(int id)
         {
             var movie = await context.Films
-                .Include(x => x.Genders)
+                .Include(x => x.Genders.OrderByDescending(g => g.Name))
                 .Include(x => x.cinemaRooms).ThenInclude(y => y.Cinema)
-                .Include(x => x.FilmsActors).ThenInclude(y => y.Actor)
+                .Include(x => x.FilmsActors.Where(z => z.Actor.BirthDate.Value.Year >= 1980)).ThenInclude(y => y.Actor)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (movie is null) { return NotFound(); }
