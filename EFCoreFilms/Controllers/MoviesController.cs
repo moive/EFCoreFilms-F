@@ -50,5 +50,22 @@ namespace EFCoreFilms.Controllers
 
             return movie;
         }
+
+        [HttpGet("select/{id:int}")]
+        public async Task<ActionResult> GetSelectivo(int id)
+        {
+            var movie = context.Films
+                .Select(p => new
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Genders = p.Genders.OrderByDescending(x => x.Name).Select(g => g.Name).ToList(),
+                    Count = p.FilmsActors.Count(),
+                    CinemasCount = p.cinemaRooms.Select(s => s.CinemaId).Distinct().Count()
+                }).FirstOrDefault(x => x.Id == id);
+
+            if (movie is null) { return NotFound(); }
+            return Ok(movie);
+        }
     }
 }
