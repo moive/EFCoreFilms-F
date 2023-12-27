@@ -100,5 +100,31 @@ namespace EFCoreFilms.Controllers
             moviesDTO.Cinemas = moviesDTO.Cinemas.DistinctBy(x => x.Id).ToList();
             return moviesDTO;
         }
+
+        [HttpGet("GroupedByPremiere")]
+        public async Task<ActionResult> GetGroupedByBillboard()
+        {
+            var groupedMovies = await context.Films.GroupBy(x => x.OnBillboard).Select(g => new
+            {
+                OnBillboard = g.Key,
+                Count = g.Count(),
+                Movies = g.ToList()
+            }).ToListAsync();
+
+            return Ok(groupedMovies);
+        }
+
+        [HttpGet("GroupedGenders")]
+        public async Task<ActionResult> GetGroupedGenders()
+        {
+            var groupedMovies = await context.Films.GroupBy(p => p.Genders.Count()).Select(g => new
+            {
+                Count = g.Key,
+                Title = g.Select(x => x.Title),
+                Genders = g.Select(y => y.Genders).SelectMany(gen => gen).Select(gen => gen.Name).Distinct(),
+            }).ToListAsync();
+
+            return Ok(groupedMovies);
+        }
     }
 }
