@@ -126,5 +126,36 @@ namespace EFCoreFilms.Controllers
 
             return Ok(groupedMovies);
         }
+
+        [HttpGet("FilterMovies")]
+        public async Task<ActionResult<List<MovieDTO>>> FilterMovies([FromQuery] FilmFilterDTO filmFilterDTO)
+        {
+            var moviesQueryable = context.Films.AsQueryable();
+
+            if (!String.IsNullOrEmpty(filmFilterDTO.Title))
+            {
+                moviesQueryable = moviesQueryable.Where(f => f.Title.Contains(filmFilterDTO.Title));
+            }
+
+            if (filmFilterDTO.OnBuilboard)
+            {
+                moviesQueryable = moviesQueryable.Where(x => x.OnBillboard);
+            }
+
+            if (filmFilterDTO.UpcomingMovies)
+            {
+                var today = DateTime.Today;
+                moviesQueryable = moviesQueryable.Where(x => x.ReleaseDate > today);
+            }
+
+            if (filmFilterDTO.GenderId != 0)
+            {
+                moviesQueryable = moviesQueryable.Where(x => x.Genders.Select(g => g.Identifier).Contains(filmFilterDTO.GenderId));
+            }
+
+            var movies = await moviesQueryable.Include(x => x.Genders).ToListAsync();
+
+            return mapper.Map<List<MovieDTO>>(movies);
+        }
     }
 }
