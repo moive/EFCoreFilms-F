@@ -15,7 +15,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options=> {
     options.UseSqlServer(connectionString, sqlServer => sqlServer.UseNetTopologySuite());
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    options.UseLazyLoadingProxies();
+    //options.UseLazyLoadingProxies();
 });
 
 builder.Services.AddAutoMapper(typeof(Program));

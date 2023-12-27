@@ -10,8 +10,8 @@ namespace EFCoreFilms.entities
         public DateTime ReleaseDate { get; set; }
         //[Unicode(false)]
         public string posterURL { get; set; }
-        public virtual List<Gender> Genders { get; set; }
-        public virtual HashSet<CinemaRoom> cinemaRooms { get; set; }
-        public virtual HashSet<FilmActor> FilmsActors { get; set; }
+        public List<Gender> Genders { get; set; }
+        public HashSet<CinemaRoom> cinemaRooms { get; set; }
+        public HashSet<FilmActor> FilmsActors { get; set; }
     }
 }

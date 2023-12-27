@@ -8,7 +8,7 @@ namespace EFCoreFilms.entities
         public int Id { get; set; }
         public string Name { get; set; }
         public Point Location { get; set; }
-        public virtual CinemaOffer CinemaOffer { get; set; }
-        public virtual HashSet<CinemaRoom> Cinemaroom { get; set; } // HashSet is not sortable data
+        public CinemaOffer CinemaOffer { get; set; }
+        public HashSet<CinemaRoom> Cinemaroom { get; set; } // HashSet is not sortable data
     }
 }
