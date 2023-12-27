@@ -85,5 +85,20 @@ namespace EFCoreFilms.Controllers
 
             return movieDTO;
         }
+
+        [HttpGet("lazyloading/{id:int}")]
+        public async Task<ActionResult<MovieDTO>> GetLazyLoading(int id)
+        {
+            var movies = await context.Films.AsTracking().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (movies == null)
+            {
+                return NotFound();
+            }
+
+            var moviesDTO = mapper.Map<MovieDTO>(movies);
+            moviesDTO.Cinemas = moviesDTO.Cinemas.DistinctBy(x => x.Id).ToList();
+            return moviesDTO;
+        }
     }
 }
