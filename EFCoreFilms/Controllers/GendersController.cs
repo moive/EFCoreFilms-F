@@ -32,6 +32,25 @@ namespace EFCoreFilms.Controllers
             return gender;
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Post(Gender gender)
+        {
+            var status1 = context.Entry(gender).State;
+            context.Add(gender);
+            var status2 = context.Entry(gender).State;
+            await context.SaveChangesAsync();
+            var status3 = context.Entry(gender).State;
+            return Ok();
+        }
+
+        [HttpPost("multiple")]
+        public async Task<ActionResult> Post(Gender[] genders)
+        {
+            context.AddRange(genders);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpGet("first")]
         public async Task<ActionResult<Gender>> First()
         {
