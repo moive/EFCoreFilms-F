@@ -47,6 +47,8 @@ namespace EFCoreFilms.Services
                     dto => dto.MapFrom(field => field.CinemaRooms.Select(id => new CinemaRoom() { Id = id })));
 
             CreateMap<MovieActorCreationDTO, FilmActor>();
+
+            CreateMap<ActorCreationDTO, Actor>();
         }
     }
 }
