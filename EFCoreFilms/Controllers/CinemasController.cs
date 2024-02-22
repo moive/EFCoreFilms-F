@@ -83,5 +83,13 @@ namespace EFCoreFilms.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost("withDTO")]
+        public async Task<ActionResult> Post(CinemaCreationDTO cinemaCreationDTO) {
+            var cinema = mapper.Map<Cinema>(cinemaCreationDTO);
+            context.Add(cinema);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
