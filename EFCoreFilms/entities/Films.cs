@@ -11,7 +11,7 @@ namespace EFCoreFilms.entities
         //[Unicode(false)]
         public string posterURL { get; set; }
         public List<Gender> Genders { get; set; }
-        public HashSet<CinemaRoom> cinemaRooms { get; set; }
-        public HashSet<FilmActor> FilmsActors { get; set; }
+        public List<CinemaRoom> cinemaRooms { get; set; }
+        public List<FilmActor> FilmsActors { get; set; }
     }
 }
