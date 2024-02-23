@@ -82,5 +82,18 @@ namespace EFCoreFilms.Controllers
                 .ToListAsync();
             return gender;
         }
+
+        [HttpPost("add2")]
+        public async Task<ActionResult> AddTwo(int id) {
+            var gender = await context.Genders.AsTracking().FirstOrDefaultAsync(x => x.Identifier == id);
+            if(gender is null)
+            {
+                return NotFound();
+            }
+
+            gender.Name += " 2";
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
