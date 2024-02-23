@@ -51,5 +51,21 @@ namespace EFCoreFilms.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPut("disconnected/{id:int}")]
+        public async Task<ActionResult> PutDisconnected(ActorCreationDTO actorCreationDTO, int id) {
+            var existsActor = await context.Actors.AnyAsync(a => a.Id == id);
+            
+            if(!existsActor) {
+                return NotFound();
+            }
+
+            var actor = mapper.Map<Actor>(actorCreationDTO);
+            actor.Id = id;
+
+            context.Update(actor);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
