@@ -95,5 +95,18 @@ namespace EFCoreFilms.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var gender = await context.Genders.FirstOrDefaultAsync(x => x.Identifier == id);
+            if(gender is null)
+            {
+                return NotFound();
+            }
+            context.Remove(gender);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
