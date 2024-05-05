@@ -121,5 +121,18 @@ namespace EFCoreFilms.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost("Restore/{id:int}")]
+        public async Task<ActionResult> Restore(int id)
+        {
+            var gender = await context.Genders.AsTracking().IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Identifier == id);
+            if (gender is null)
+            {
+                return NotFound();
+            }
+            gender.IsRemoved = false;
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
