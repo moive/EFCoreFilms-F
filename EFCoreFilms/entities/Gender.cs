@@ -15,5 +15,6 @@ namespace EFCoreFilms.entities
         //[Column("GenderName")]
         public string Name { get; set; }
         public HashSet<Films> Films { get; set; }
+        public bool IsRemoved { get; set; }
     }
 }

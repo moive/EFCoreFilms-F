@@ -18,7 +18,7 @@ namespace EFCoreFilms.Controllers
         [HttpGet]
         public async Task<IEnumerable<Gender>> Get()
         {
-            return await context.Genders.OrderBy(g => g.Name).ToListAsync();
+            return await context.Genders.Where(x=> !x.IsRemoved).OrderBy(g => g.Name).ToListAsync();
         }
 
         [HttpGet("{id:int}")]
@@ -105,6 +105,19 @@ namespace EFCoreFilms.Controllers
                 return NotFound();
             }
             context.Remove(gender);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("LogicalDeletion/{id:int}")]
+        public async Task<ActionResult> SoftDeletion(int id)
+        {
+            var gender = await context.Genders.AsTracking().FirstOrDefaultAsync(x => x.Identifier == id);
+            if(gender is null)
+            {
+                return NotFound();
+            }
+            gender.IsRemoved = true;
             await context.SaveChangesAsync();
             return Ok();
         }
