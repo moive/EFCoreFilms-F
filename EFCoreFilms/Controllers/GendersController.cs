@@ -18,7 +18,7 @@ namespace EFCoreFilms.Controllers
         [HttpGet]
         public async Task<IEnumerable<Gender>> Get()
         {
-            return await context.Genders.Where(x=> !x.IsRemoved).OrderBy(g => g.Name).ToListAsync();
+            return await context.Genders.OrderBy(g => g.Name).ToListAsync();
         }
 
         [HttpGet("{id:int}")]

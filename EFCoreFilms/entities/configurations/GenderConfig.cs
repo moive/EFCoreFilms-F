@@ -10,6 +10,7 @@ namespace EFCoreFilms.entities.configurations
         {
             builder.HasKey(prop => prop.Identifier);
             builder.Property(prop => prop.Name).HasMaxLength(150).IsRequired();
+            builder.HasQueryFilter(g => !g.IsRemoved);
         }
     }
 }
