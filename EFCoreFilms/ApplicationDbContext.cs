@@ -24,6 +24,7 @@ namespace EFCoreFilms
             //modelBuilder.ApplyConfiguration(new GenderConfig()); // implementing one by one 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingConsultModule.Seed(modelBuilder);
+            //modelBuilder.Entity<Log>().Property(l=>l.Id).ValueGeneratedNever(); // no generate guid
         }
 
         public DbSet<Gender> Genders { get; set; }
@@ -33,5 +34,6 @@ namespace EFCoreFilms
         public DbSet<CinemaOffer> CinemaOffers { get; set; }
         public DbSet<CinemaRoom> CinemaRooms { get; set; }
         public DbSet<FilmActor> FilmsActors { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

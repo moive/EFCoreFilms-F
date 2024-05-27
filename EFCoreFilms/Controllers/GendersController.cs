@@ -18,6 +18,9 @@ namespace EFCoreFilms.Controllers
         [HttpGet]
         public async Task<IEnumerable<Gender>> Get()
         {
+            context.Logs.Add(new Log { Id = Guid.NewGuid(), Message = "Executing method GenderController.Get"});
+
+            await context.SaveChangesAsync();
             return await context.Genders.OrderBy(g => g.Name).ToListAsync();
         }
 
