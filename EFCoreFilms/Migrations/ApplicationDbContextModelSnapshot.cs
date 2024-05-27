@@ -35,7 +35,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("cinemaRoomsId");
 
-                    b.ToTable("CinemaRoomFilms");
+                    b.ToTable("CinemaRoomFilms", (string)null);
 
                     b.HasData(
                         new
@@ -96,7 +96,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actors");
+                    b.ToTable("Actors", (string)null);
 
                     b.HasData(
                         new
@@ -170,7 +170,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cinemas");
+                    b.ToTable("Cinemas", (string)null);
 
                     b.HasData(
                         new
@@ -225,7 +225,7 @@ namespace EFCoreFilms.Migrations
                     b.HasIndex("CinemaId")
                         .IsUnique();
 
-                    b.ToTable("CinemaOffers");
+                    b.ToTable("CinemaOffers", (string)null);
 
                     b.HasData(
                         new
@@ -270,7 +270,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("CinemaId");
 
-                    b.ToTable("CinemaRooms");
+                    b.ToTable("CinemaRooms", (string)null);
 
                     b.HasData(
                         new
@@ -350,7 +350,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("ActorId");
 
-                    b.ToTable("FilmsActors");
+                    b.ToTable("FilmsActors", (string)null);
 
                     b.HasData(
                         new
@@ -430,7 +430,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Films");
+                    b.ToTable("Films", (string)null);
 
                     b.HasData(
                         new
@@ -493,7 +493,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Identifier");
 
-                    b.ToTable("Genders");
+                    b.ToTable("Genders", (string)null);
 
                     b.HasData(
                         new
@@ -539,7 +539,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Logs");
+                    b.ToTable("Logs", (string)null);
                 });
 
             modelBuilder.Entity("FilmsGender", b =>
@@ -554,7 +554,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("GendersIdentifier");
 
-                    b.ToTable("FilmsGender");
+                    b.ToTable("FilmsGender", (string)null);
 
                     b.HasData(
                         new

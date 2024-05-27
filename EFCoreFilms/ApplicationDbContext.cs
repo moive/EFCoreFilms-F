@@ -25,6 +25,7 @@ namespace EFCoreFilms
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingConsultModule.Seed(modelBuilder);
             //modelBuilder.Entity<Log>().Property(l=>l.Id).ValueGeneratedNever(); // no generate guid
+            modelBuilder.Ignore<Address>();
         }
 
         public DbSet<Gender> Genders { get; set; }

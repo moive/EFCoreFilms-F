@@ -22,5 +22,26 @@ namespace EFCoreFilms.entities
         //[Column(TypeName = "Date")]
         public DateTime? BirthDate { get; set; }
         public List<FilmActor> FilmsActors { get; set; }
+
+        [NotMapped]
+        public int? Age
+        {
+            get
+            {
+                if (!BirthDate.HasValue)
+                {
+                    return null;
+                }
+
+                var birthDate = BirthDate.Value;
+                var age = DateTime.Today.Year - birthDate.Year;
+                if(new DateTime(DateTime.Today.Year, birthDate.Month, birthDate.Day) > DateTime.Today){
+                    age--;
+                }
+                return age;
+            }
+        }
+
+        public Address Address { get; set; }
     }
 }

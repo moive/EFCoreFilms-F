@@ -11,6 +11,9 @@ namespace EFCoreFilms.entities.configurations
             builder.Property(x => x.Name).HasMaxLength(150).IsRequired();
 
             builder.Property(x=> x.Name).HasField("_name");
+
+            //builder.Ignore(a => a.Age); // not save field age in database
+            //builder.Ignore(a => a.Address);
         }
     }
 }
