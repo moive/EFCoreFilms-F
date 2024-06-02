@@ -38,11 +38,14 @@ namespace EFCoreFilms.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Gender gender)
         {
-            var status1 = context.Entry(gender).State;
+            var existsGender = await context.Genders.AnyAsync(x => x.Name == gender.Name);
+            if (existsGender)
+            {
+                return BadRequest("There is already a user with the name: " + gender.Name);
+            }
             context.Add(gender);
-            var status2 = context.Entry(gender).State;
             await context.SaveChangesAsync();
-            var status3 = context.Entry(gender).State;
+
             return Ok();
         }
 

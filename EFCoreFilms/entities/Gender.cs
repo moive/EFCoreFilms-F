@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCoreFilms.entities
 {
+    [Index(nameof(Name),IsUnique = true)]
     //[Table("TableGenders", Schema = "Films")]
     public class Gender
     {
