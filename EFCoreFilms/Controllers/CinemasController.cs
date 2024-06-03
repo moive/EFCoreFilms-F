@@ -56,7 +56,7 @@ namespace EFCoreFilms.Controllers
 
             var cinema = new Cinema()
             {
-                Name = "My Excelsius",
+                Name = "My Excelsius my currency",
                 Location = myLocation,
                 CinemaOffer = new CinemaOffer()
                 {
@@ -69,11 +69,13 @@ namespace EFCoreFilms.Controllers
                     new CinemaRoom()
                     {
                         Price = 200,
+                        Currency = Currency.NewSun,
                         CinemaType = CinemaType.TwoDimensions
                     },
                     new CinemaRoom()
                     {
                         Price = 300,
+                        Currency = Currency.Dollar,
                         CinemaType = CinemaType.ThreeDimensions
                     }
                 }

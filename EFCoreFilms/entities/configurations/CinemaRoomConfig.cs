@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreFilms.entities.convertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection.Emit;
 
@@ -12,6 +13,7 @@ namespace EFCoreFilms.entities.configurations
             builder.Property(x => x.CinemaType)
                 .HasDefaultValue(CinemaType.TwoDimensions)
                 .HasConversion<string>();
+            builder.Property(prop => prop.Currency).HasConversion<CurrencySymbol>();
         }
     }
 }
