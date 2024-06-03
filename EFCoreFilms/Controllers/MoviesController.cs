@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using EFCoreFilms.DTOs;
 using EFCoreFilms.entities;
+using EFCoreFilms.entities.keyless;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,12 @@ namespace EFCoreFilms.Controllers
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        [HttpGet("MoviesWithCount")]
+        public async Task<ActionResult<IEnumerable<FilmsWithCount>>> GetMovieWithCount()
+        {
+            return await context.Set<FilmsWithCount>().ToListAsync();
         }
 
         [HttpGet("{id:int}")]

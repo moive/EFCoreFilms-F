@@ -29,6 +29,7 @@ namespace EFCoreFilms
             //modelBuilder.Ignore<Address>();
             modelBuilder.Entity<CinemaNoLocation>()
                 .HasNoKey().ToSqlQuery("Select Id, Name FROM Cinemas").ToView(null);
+            modelBuilder.Entity<FilmsWithCount>().HasNoKey().ToView("FilmsWithCount");
         }
 
         public DbSet<Gender> Genders { get; set; }
