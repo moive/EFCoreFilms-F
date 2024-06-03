@@ -1,5 +1,6 @@
 ﻿using EFCoreFilms.entities;
 using EFCoreFilms.entities.configurations;
+using EFCoreFilms.entities.keyless;
 using EFCoreFilms.entities.seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -25,7 +26,9 @@ namespace EFCoreFilms
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingConsultModule.Seed(modelBuilder);
             //modelBuilder.Entity<Log>().Property(l=>l.Id).ValueGeneratedNever(); // no generate guid
-            modelBuilder.Ignore<Address>();
+            //modelBuilder.Ignore<Address>();
+            modelBuilder.Entity<CinemaNoLocation>()
+                .HasNoKey().ToSqlQuery("Select Id, Name FROM Cinemas").ToView(null);
         }
 
         public DbSet<Gender> Genders { get; set; }

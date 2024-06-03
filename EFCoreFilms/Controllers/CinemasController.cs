@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using EFCoreFilms.DTOs;
 using EFCoreFilms.entities;
+using EFCoreFilms.entities.keyless;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite;
@@ -20,6 +21,12 @@ namespace EFCoreFilms.Controllers
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        [HttpGet("NoLocation")]
+        public async Task<IEnumerable<CinemaNoLocation>> GetCinemaNoLocation()
+        {
+            return await context.Set<CinemaNoLocation>().ToListAsync();
         }
 
         [HttpGet]
