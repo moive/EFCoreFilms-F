@@ -39,5 +39,6 @@ namespace EFCoreFilms
         public DbSet<CinemaRoom> CinemaRooms { get; set; }
         public DbSet<FilmActor> FilmsActors { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<CinemaNoLocation> CinemaNoLocations { get; set; }
     }
 }

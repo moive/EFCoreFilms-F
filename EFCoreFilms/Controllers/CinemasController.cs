@@ -26,7 +26,8 @@ namespace EFCoreFilms.Controllers
         [HttpGet("NoLocation")]
         public async Task<IEnumerable<CinemaNoLocation>> GetCinemaNoLocation()
         {
-            return await context.Set<CinemaNoLocation>().ToListAsync();
+            //return await context.Set<CinemaNoLocation>().ToListAsync();
+            return await context.CinemaNoLocations.ToListAsync();
         }
 
         [HttpGet]
