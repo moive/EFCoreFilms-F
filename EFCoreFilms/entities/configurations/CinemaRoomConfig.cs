@@ -9,7 +9,9 @@ namespace EFCoreFilms.entities.configurations
         public void Configure(EntityTypeBuilder<CinemaRoom> builder)
         {
             builder.Property(x => x.Price).HasPrecision(precision: 9, scale: 2);
-            builder.Property(x => x.CinemaType).HasDefaultValue(CinemaType.TwoDimensions);
+            builder.Property(x => x.CinemaType)
+                .HasDefaultValue(CinemaType.TwoDimensions)
+                .HasConversion<string>();
         }
     }
 }
