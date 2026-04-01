@@ -1,4 +1,5 @@
 using EFCoreFilms;
+using EFCoreFilms.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=> {
     //options.UseLazyLoadingProxies();
 });
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfiles));
 
 var app = builder.Build();
 
