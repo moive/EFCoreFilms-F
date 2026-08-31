@@ -207,7 +207,7 @@ namespace EFCoreFilms.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CinemaId")
+                    b.Property<int?>("CinemaId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("DiscountPercentage")
@@ -223,7 +223,8 @@ namespace EFCoreFilms.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CinemaId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CinemaId] IS NOT NULL");
 
                     b.ToTable("CinemaOffers");
 
@@ -691,9 +692,7 @@ namespace EFCoreFilms.Migrations
                 {
                     b.HasOne("EFCoreFilms.entities.Cinema", null)
                         .WithOne("CinemaOffer")
-                        .HasForeignKey("EFCoreFilms.entities.CinemaOffer", "CinemaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EFCoreFilms.entities.CinemaOffer", "CinemaId");
                 });
 
             modelBuilder.Entity("EFCoreFilms.entities.CinemaRoom", b =>

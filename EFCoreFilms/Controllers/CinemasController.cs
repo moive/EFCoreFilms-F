@@ -64,7 +64,7 @@ namespace EFCoreFilms.Controllers
 
             var cinema = new Cinema()
             {
-                Name = "My Excelsius my currency",
+                Name = "Delete my cinema",
                 Location = myLocation,
                 CinemaOffer = new CinemaOffer()
                 {
@@ -140,6 +140,19 @@ namespace EFCoreFilms.Controllers
         [HttpPut("cinemaOffer")]
         public async Task<ActionResult> PutOfferCinema(CinemaOffer cinemaOffer) {
             context.Update(cinemaOffer);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var cinema = await context.Cinemas.Include(x=>x.CinemaOffer).FirstOrDefaultAsync(x => x.Id == id);
+            if (cinema is null) {
+                return NotFound();
+            }
+
+            context.Remove(cinema);
             await context.SaveChangesAsync();
             return Ok();
         }
