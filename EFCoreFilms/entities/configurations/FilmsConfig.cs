@@ -10,6 +10,17 @@ namespace EFCoreFilms.entities.configurations
         {
             builder.Property(x => x.Title).HasMaxLength(250).IsRequired();
             builder.Property(x => x.posterURL).HasMaxLength(500).IsUnicode(false);
+
+            //builder.HasMany(p => p.Genders)
+            //    .WithMany(g => g.Films)
+            //    .UsingEntity(
+            //        j => j.ToTable("FilmsGenders")
+            //        .HasData(new
+            //        {
+            //            FilmsId = 1,
+            //            GendersIdentifier = 5
+            //        })
+            //    );
         }
     }
 }
