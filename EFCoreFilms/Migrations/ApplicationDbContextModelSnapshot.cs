@@ -18,7 +18,7 @@ namespace EFCoreFilms.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -233,16 +233,16 @@ namespace EFCoreFilms.Migrations
                             Id = 2,
                             CinemaId = 4,
                             DiscountPercentage = 15m,
-                            EndDate = new DateTime(2024, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2024, 6, 2, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 8, 30, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 1,
                             CinemaId = 1,
                             DiscountPercentage = 10m,
-                            EndDate = new DateTime(2024, 6, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2024, 6, 2, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 8, 30, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -571,6 +571,28 @@ namespace EFCoreFilms.Migrations
                     b.ToView(null, (string)null);
 
                     b.ToSqlQuery("Select Id, Name FROM Cinemas");
+                });
+
+            modelBuilder.Entity("EFCoreFilms.entities.keyless.FilmsWithCount", b =>
+                {
+                    b.Property<int>("CountActors")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountCinemas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountGender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("FilmsWithCount", (string)null);
                 });
 
             modelBuilder.Entity("FilmsGender", b =>
