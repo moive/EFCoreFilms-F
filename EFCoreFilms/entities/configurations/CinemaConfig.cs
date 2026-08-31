@@ -9,6 +9,11 @@ namespace EFCoreFilms.entities.configurations
         public void Configure(EntityTypeBuilder<Cinema> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(150).IsRequired();
+
+            builder
+                .HasOne(c => c.CinemaOffer)
+                .WithOne()
+                .HasForeignKey<CinemaOffer>(co => co.CinemaId);
         }
     }
 }
