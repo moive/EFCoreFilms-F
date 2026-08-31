@@ -1,4 +1,6 @@
-﻿namespace EFCoreFilms.entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EFCoreFilms.entities
 {
     public class CinemaRoom
     {
@@ -6,6 +8,7 @@
         public CinemaType CinemaType { get; set; }
         public Decimal Price { get; set; }
         public int CinemaId { get; set; }
+        [ForeignKey(nameof(CinemaId))]
         public Cinema Cinema { get; set; }
         public HashSet<Films> Films { get; set; }
         public Currency Currency { get; set; }
