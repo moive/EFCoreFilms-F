@@ -14,6 +14,11 @@ namespace EFCoreFilms.entities.configurations
                 .HasOne(c => c.CinemaOffer)
                 .WithOne()
                 .HasForeignKey<CinemaOffer>(co => co.CinemaId);
+
+            builder
+                .HasMany(c => c.Cinemaroom)
+                .WithOne(s => s.Cinema)
+                .HasForeignKey(s => s.CinemaId);
         }
     }
 }
