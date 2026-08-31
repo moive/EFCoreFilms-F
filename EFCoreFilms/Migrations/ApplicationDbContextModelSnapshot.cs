@@ -234,16 +234,16 @@ namespace EFCoreFilms.Migrations
                             Id = 2,
                             CinemaId = 4,
                             DiscountPercentage = 15m,
-                            EndDate = new DateTime(2026, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2026, 8, 30, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 8, 31, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 1,
                             CinemaId = 1,
                             DiscountPercentage = 10m,
-                            EndDate = new DateTime(2026, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2026, 8, 30, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 8, 31, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -559,6 +559,90 @@ namespace EFCoreFilms.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("EFCoreFilms.entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Hello Claudia!",
+                            RecipientId = 2,
+                            SenderId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Hello Felipe. How are you?",
+                            RecipientId = 1,
+                            SenderId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Very good, and you?",
+                            RecipientId = 2,
+                            SenderId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Nice :)",
+                            RecipientId = 1,
+                            SenderId = 2
+                        });
+                });
+
+            modelBuilder.Entity("EFCoreFilms.entities.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Persons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Feliple"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Claudia"
+                        });
+                });
+
             modelBuilder.Entity("EFCoreFilms.entities.keyless.CinemaNoLocation", b =>
                 {
                     b.Property<int>("Id")
@@ -725,6 +809,25 @@ namespace EFCoreFilms.Migrations
                     b.Navigation("Film");
                 });
 
+            modelBuilder.Entity("EFCoreFilms.entities.Message", b =>
+                {
+                    b.HasOne("EFCoreFilms.entities.Person", "Recipient")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCoreFilms.entities.Person", "Sender")
+                        .WithMany("SendMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("FilmsGender", b =>
                 {
                     b.HasOne("EFCoreFilms.entities.Films", null)
@@ -755,6 +858,13 @@ namespace EFCoreFilms.Migrations
             modelBuilder.Entity("EFCoreFilms.entities.Films", b =>
                 {
                     b.Navigation("FilmsActors");
+                });
+
+            modelBuilder.Entity("EFCoreFilms.entities.Person", b =>
+                {
+                    b.Navigation("ReceivedMessages");
+
+                    b.Navigation("SendMessages");
                 });
 #pragma warning restore 612, 618
         }
