@@ -10,5 +10,6 @@ namespace EFCoreFilms.entities
         public Point Location { get; set; }
         public CinemaOffer CinemaOffer { get; set; }
         public HashSet<CinemaRoom> Cinemaroom { get; set; } // HashSet is not sortable data
+        public CinemaDetail CinemaDetail { get; set; }
     }
 }

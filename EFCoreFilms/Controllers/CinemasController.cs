@@ -64,8 +64,13 @@ namespace EFCoreFilms.Controllers
 
             var cinema = new Cinema()
             {
-                Name = "Delete my cinema",
+                Name = "Delete my cinema with detail",
                 Location = myLocation,
+                CinemaDetail = new CinemaDetail() { 
+                    History = "History...",
+                    CodeOfEthics = "Code of ethics...",
+                    Missions = "Missions..."
+                },
                 CinemaOffer = new CinemaOffer()
                 {
                     DiscountPercentage = 5,
@@ -109,6 +114,7 @@ namespace EFCoreFilms.Controllers
             var cinemaDB = await context.Cinemas.AsTracking()
                 .Include(x => x.Cinemaroom)
                 .Include(x => x.CinemaOffer)
+                .Include(c=> c.CinemaDetail)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if(cinemaDB is null)
@@ -147,10 +153,17 @@ namespace EFCoreFilms.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var cinema = await context.Cinemas.Include(x=>x.CinemaOffer).FirstOrDefaultAsync(x => x.Id == id);
+            var cinema = await context.Cinemas
+                .Include(x => x.Cinemaroom)
+                .Include(x => x.CinemaOffer)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (cinema is null) {
                 return NotFound();
             }
+
+            context.RemoveRange(cinema.Cinemaroom);
+            await context.SaveChangesAsync();
 
             context.Remove(cinema);
             await context.SaveChangesAsync();

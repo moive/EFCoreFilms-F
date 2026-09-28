@@ -35,7 +35,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("cinemaRoomsId");
 
-                    b.ToTable("CinemaRoomFilms", (string)null);
+                    b.ToTable("CinemaRoomFilms");
 
                     b.HasData(
                         new
@@ -96,7 +96,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actors", (string)null);
+                    b.ToTable("Actors");
 
                     b.HasData(
                         new
@@ -170,7 +170,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cinemas", (string)null);
+                    b.ToTable("Cinemas");
 
                     b.HasData(
                         new
@@ -197,6 +197,29 @@ namespace EFCoreFilms.Migrations
                             Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.9388777 18.4839233)"),
                             Name = "Agora Mall"
                         });
+                });
+
+            modelBuilder.Entity("EFCoreFilms.entities.CinemaDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodeOfEthics")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("History")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Missions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Values")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cinemas", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreFilms.entities.CinemaOffer", b =>
@@ -226,7 +249,7 @@ namespace EFCoreFilms.Migrations
                         .IsUnique()
                         .HasFilter("[CinemaId] IS NOT NULL");
 
-                    b.ToTable("CinemaOffers", (string)null);
+                    b.ToTable("CinemaOffers");
 
                     b.HasData(
                         new
@@ -234,16 +257,16 @@ namespace EFCoreFilms.Migrations
                             Id = 2,
                             CinemaId = 4,
                             DiscountPercentage = 15m,
-                            EndDate = new DateTime(2026, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2026, 8, 31, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 10, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 9, 27, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 1,
                             CinemaId = 1,
                             DiscountPercentage = 10m,
-                            EndDate = new DateTime(2026, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            StartDate = new DateTime(2026, 8, 31, 0, 0, 0, 0, DateTimeKind.Local)
+                            EndDate = new DateTime(2026, 10, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            StartDate = new DateTime(2026, 9, 27, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -276,7 +299,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("CinemaId");
 
-                    b.ToTable("CinemaRooms", (string)null);
+                    b.ToTable("CinemaRooms");
 
                     b.HasData(
                         new
@@ -364,7 +387,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("ActorId");
 
-                    b.ToTable("FilmsActors", (string)null);
+                    b.ToTable("FilmsActors");
 
                     b.HasData(
                         new
@@ -444,7 +467,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Films", (string)null);
+                    b.ToTable("Films");
 
                     b.HasData(
                         new
@@ -511,7 +534,7 @@ namespace EFCoreFilms.Migrations
                         .IsUnique()
                         .HasFilter("IsRemoved = 'false'");
 
-                    b.ToTable("Genders", (string)null);
+                    b.ToTable("Genders");
 
                     b.HasData(
                         new
@@ -556,7 +579,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Logs", (string)null);
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("EFCoreFilms.entities.Message", b =>
@@ -582,7 +605,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
 
                     b.HasData(
                         new
@@ -628,7 +651,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons", (string)null);
+                    b.ToTable("Persons");
 
                     b.HasData(
                         new
@@ -692,7 +715,7 @@ namespace EFCoreFilms.Migrations
 
                     b.HasIndex("GendersIdentifier");
 
-                    b.ToTable("FilmsGender", (string)null);
+                    b.ToTable("FilmsGender");
 
                     b.HasData(
                         new
@@ -772,6 +795,17 @@ namespace EFCoreFilms.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EFCoreFilms.entities.CinemaDetail", b =>
+                {
+                    b.HasOne("EFCoreFilms.entities.Cinema", "Cinema")
+                        .WithOne("CinemaDetail")
+                        .HasForeignKey("EFCoreFilms.entities.CinemaDetail", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+                });
+
             modelBuilder.Entity("EFCoreFilms.entities.CinemaOffer", b =>
                 {
                     b.HasOne("EFCoreFilms.entities.Cinema", null)
@@ -784,7 +818,7 @@ namespace EFCoreFilms.Migrations
                     b.HasOne("EFCoreFilms.entities.Cinema", "Cinema")
                         .WithMany("Cinemaroom")
                         .HasForeignKey("CinemaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cinema");
@@ -850,6 +884,8 @@ namespace EFCoreFilms.Migrations
 
             modelBuilder.Entity("EFCoreFilms.entities.Cinema", b =>
                 {
+                    b.Navigation("CinemaDetail");
+
                     b.Navigation("CinemaOffer");
 
                     b.Navigation("Cinemaroom");
